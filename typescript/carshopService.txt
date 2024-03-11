@@ -1,0 +1,65 @@
+Carshop Service
+
+Develop a CarShop Service Management System in TypeScript that models the operations of a car shop. This system will manage the servicing of different types of vehicles (Cars, Trucks, Vans, E-Vehicles) and will involve interactions between various employees (Mechanic, Receiver, Boss, Accountant) to handle the workflow from vehicle check-in to billing. 
+
+
+The CarShop:
+has: 
+service history - passed repairs
+currentRepairs - the ongoing repairs
+pricelist - a list with problems that the Car shop is able to fix and a price for each of them
+balance - the current cash amount 
+
+The Receiver:
+can:
+ receiveVehicle for assessing 
+assign a mechanic to specific vehicle based on the type of specialization of the mechanic and the nature of the problem
+has:
+current vehicle for assessing
+The mechanic:
+has: 
+a type of vehicles that he is able to fix (could be more than one)
+currently repairing vehicle
+time left for the repair
+can:
+repair a vehicle
+accept a vehicle of repair - generates a repair entity that contains info about estimated time needed and  cost of the repair 
+pass the vehicle to the accountant for billing
+The accountant: 
+can:
+issue an invoice
+submit the repair into the service history
+add to the balance of the Car Shop
+generate a report with all the repairs and their cost for a given timerange
+has:
+a list with repaired cars for processing
+
+The boss:
+can:
+collect money
+
+General requirement: Each method logs information to the console about what is the system currently doing. For example: 
+
+“Vehicle - Ford, Mondeo 2002 entered the shop and assessment has started”
+“Vehicle - Ford, Mondeo 2002 finished all repairs”
+etc.
+
+
+Testing Scenario
+Setup:
+
+Create a CarShop instance with a service history, current repairs list, pricelist, and balance initialized.
+Instantiate Employee objects for each role (Mechanic, Receiver, Boss, Accountant), each with their specific capabilities and responsibilities.
+
+Vehicle List Creation:
+
+Generate a list of 20 vehicles (Vehicle objects) with varied types (Cars, Trucks, Vans, E-Vehicles) and repair needs (minor to major). Include attributes like model, year, and issue description.
+Process Flow:
+
+Check-in: 
+
+Use the Receiver to receive each vehicle, log initial assessment details, and assign a mechanic based on the vehicle type and issue.
+Repair: Mechanics work on their assigned vehicles, updating the system with repair status and time estimates. After repairs, they pass information to the Accountant.
+Billing: The Accountant generates invoices based on the pricelist and completed work, submits repair details into the service history, and updates the balance.
+Finalization: Once all vehicles are processed, the Accountant generates a comprehensive report detailing the repairs made, costs, and any notable issues encountered.
+
