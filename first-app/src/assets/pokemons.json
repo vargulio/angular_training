@@ -1,0 +1,112 @@
+
+Build a page listing this pokemons. 
+For each pokemon there should be a card.
+On the top of the page implement a searching functionality, that dynamically filters pokemons by name and type. The logical operator for the 2 filters is AND.
+Make each pokemon card to contain a button that will add it to a favorites collection. 
+The names of all the favorites are listed on the top of the page,below the search filters, along with X button to remove the pokemon from favorites. 
+There should be a possibility to remove from favorites also from the pokemon card itself.
+
+Pokemon data:
+
+[
+  {
+    "name": "bulbasaur",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+    "type": "grass"
+  },
+  {
+    "name": "venusaur",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",
+    "type": "grass"
+  },
+  {
+    "name": "weedle",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/13.png",
+    "type": "bug"
+  },
+  {
+    "name": "caterpie",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10.png",
+    "type": "bug"
+  },
+  {
+    "name": "metapod",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/11.png",
+    "type": "bug"
+  },
+  {
+    "name": "kakuna",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/14.png",
+    "type": "bug"
+  },
+  {
+    "name": "pidgeotto",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/17.png",
+    "type": "normal"
+  },
+  {
+    "name": "ivysaur",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
+    "type": "grass"
+  },
+  {
+    "name": "charmeleon",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/5.png",
+    "type": "fire"
+  },
+  {
+    "name": "charmander",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
+    "type": "fire"
+  },
+  {
+    "name": "wartortle",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/8.png",
+    "type": "water"
+  },
+  {
+    "name": "charizard",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
+    "type": "fire"
+  },
+  {
+    "name": "squirtle",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
+    "type": "water"
+  },
+  {
+    "name": "butterfree",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/12.png",
+    "type": "bug"
+  },
+  {
+    "name": "rattata",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/19.png",
+    "type": "normal"
+  },
+  {
+    "name": "beedrill",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/15.png",
+    "type": "bug"
+  },
+  {
+    "name": "raticate",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/20.png",
+    "type": "normal"
+  },
+  {
+    "name": "pidgey",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/16.png",
+    "type": "normal"
+  },
+  {
+    "name": "pidgeot",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/18.png",
+    "type": "normal"
+  },
+  {
+    "name": "blastoise",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png",
+    "type": "water"
+  }
+]

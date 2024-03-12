@@ -1,0 +1,16 @@
+<app-first-component></app-first-component>
+<app-second-component></app-second-component>
+<app-pokemon-card [pokemon]="pokemon" (somthingHappened)="onChildCry($event)"></app-pokemon-card>
+<app-counter *roles="['admin', 'keyuser']" [(counter)]="orignalCounter"></app-counter>
+<button (click)="toggleCounter()">Toggle</button>
+{{pokemon | stringifyPokemon : 'name' : 'image' }}
+
+<div>
+    <div>Sorted:</div>
+    <span *ngFor="let number of (numbersList | sorted)">{{number}},</span>
+</div>
+<div>
+    <div>Original:</div>
+    <span *ngFor="let number of numbersList">{{number}},</span>
+</div>
+<button (click)="addNumber()">Add number</button>
