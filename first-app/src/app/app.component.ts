@@ -10,6 +10,8 @@ import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { IfPermissionDirective } from './if-permission.directive';
 import { StringifyPokemonPipe } from './stringify-pokemon.pipe';
 import { SortedPipe } from './sorted.pipe';
+import { CreatePokemonComponent } from './create-pokemon/create-pokemon.component';
+import { BuildPokemonComponent } from './build-pokemon/build-pokemon.component';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +27,9 @@ import { SortedPipe } from './sorted.pipe';
     StringifyPokemonPipe,
     JsonPipe,
     SortedPipe,
-    NgFor
+    NgFor,
+    CreatePokemonComponent,
+    BuildPokemonComponent
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
