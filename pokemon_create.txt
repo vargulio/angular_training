@@ -1,0 +1,16 @@
+Създайте форма, с която ще строим Покемони, със следните полета:
+име, минимум 6 символа, да започва с главна буква, задължително поле
+тип, стринг, задължително поле
+снимка, задължително поле ( дефинрайте я като стринг)
+абилитийс, поне една, като може да са много.
+
+onFileChange(event: Event) {
+    const fileReader = new FileReader();
+    const file = (event.target as HTMLInputElement)?.files?.[0];
+    if (file) {
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        // fileReader.result contains base64 encoded version of our image
+      }
+    }
+  }
