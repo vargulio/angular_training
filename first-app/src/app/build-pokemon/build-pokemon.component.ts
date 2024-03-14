@@ -1,7 +1,8 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Subscription, combineLatest, concatMap, debounceTime, distinctUntilChanged, distinctUntilKeyChanged, filter, from, interval, map, mergeMap, of, skip, switchMap, take, takeUntil, takeWhile, tap, throttleTime, timer } from 'rxjs';
+import { BehaviorSubject, EMPTY, ReplaySubject, Subject, Subscription, catchError, combineLatest, concatMap, debounceTime, distinctUntilChanged, distinctUntilKeyChanged, filter, finalize, forkJoin, from, interval, map, mergeMap, of, share, skip, switchMap, take, takeUntil, takeWhile, tap, throttleTime, throwError, timer } from 'rxjs';
+import { PokemonService } from '../pokemon.service';
 
 interface PokemonForm {
   name: FormControl<string>;
@@ -55,12 +56,75 @@ interface PokemonForm {
 })
 export class BuildPokemonComponent {
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private pokemonService: PokemonService) { }
 
   sub: Subscription | null = null;
   counter = 0;
 
   ngOnInit() {
+
+
+    // interval(1000).pipe(
+    //   take(2),
+    //   switchMap((value) => {
+    //     if(Math.random()>0.9) {
+    //       return throwError(() => new Error("Somthing smells ...."));
+    //     }
+    //     return of(value);
+    //   }),
+    //   tap((value) => {
+    //     console.log(value);
+    //   }), 
+    //   catchError((error) => {
+    //     console.log("Error from catchError: ", error);
+    //     return EMPTY;
+    //   }),
+    //   finalize(() => {
+    //     console.log('Finalize');
+    //   })      
+    // ).subscribe(
+    //   {
+    //     complete: () => console.log('Complete')
+    //   }
+    // )
+
+    const obs1$ = interval(100).pipe(take(2));
+    const obs2$ = interval(1000).pipe(
+      take(3),
+      switchMap((value) => {
+        if (Math.random() > 0.6) {
+          return throwError(() => new Error("Somthing smells ...."));
+        }
+        return of(value);
+      }),
+      catchError(error => {
+        return of(null);
+      })
+    );
+
+    // const sub = new Subscription();
+    // const obs3$ = interval(500).pipe(take(10),tap(console.log), share());
+
+    // const sub1 = obs3$.subscribe(data => console.log('Data from subscriber A: ', data));
+    // sub.add(sub1);
+    // const sub2 = timer(500).pipe(switchMap(() => obs3$)).subscribe(data => console.log('Data from subscriber B: ', data));
+    // sub.add(sub2);
+    
+    // timer(3000).pipe(
+    //   tap(() => {
+    //     sub.unsubscribe();
+    //   })
+    // ).subscribe();
+
+    // forkJoin([obs1$, obs2$, obs3$]).pipe(
+    //   tap(result => {
+    //     console.log('Result', result);
+    //   })
+    // ).subscribe();
+
+
     // this.sub = this.form.valueChanges.pipe(
     //   throttleTime(1000),
     //   map((data) => {
@@ -83,6 +147,26 @@ export class BuildPokemonComponent {
     //   distinctUntilChanged((previous, current) => previous?.length === current?.length )
     //   )
     // .subscribe(console.log);
+
+
+    // const obsShared$ = interval(400).pipe(
+    //   map(index => {
+    //     console.log("MAPVAM ");
+    //   }),
+    //   share(),
+    //   take(10)
+    // );
+
+    // obsShared$.subscribe((d) => console.log('Data from sub1: ', d));
+    // obsShared$.subscribe((d) => console.log('Data from sub2: ', d));
+
+
+    const subject = new BehaviorSubject('initial');
+
+    // subject.next('1');
+    subject.subscribe((v) => console.log("Subscriber A: ", v));
+    subject.next('2');
+    subject.subscribe((v) => console.log("Subscriber B: ", v));
 
 
     const actions$ = interval(400).pipe(
@@ -122,9 +206,11 @@ export class BuildPokemonComponent {
     // actions$.pipe(
     //   mergeMap((action) => processAction$.pipe(map(processStep => `${action} ${processStep}`)))
     // ).subscribe(console.log);
-    
-      combineLatest([actions$, processAction$]).subscribe(console.log);
-    
+
+    // combineLatest([actions$, processAction$]).subscribe(console.log);
+
+
+
   }
 
   ngOnDestroy() {

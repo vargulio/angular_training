@@ -12,6 +12,7 @@ import { StringifyPokemonPipe } from './stringify-pokemon.pipe';
 import { SortedPipe } from './sorted.pipe';
 import { CreatePokemonComponent } from './create-pokemon/create-pokemon.component';
 import { BuildPokemonComponent } from './build-pokemon/build-pokemon.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +30,8 @@ import { BuildPokemonComponent } from './build-pokemon/build-pokemon.component';
     SortedPipe,
     NgFor,
     CreatePokemonComponent,
-    BuildPokemonComponent
+    BuildPokemonComponent,
+    NavbarComponent
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
