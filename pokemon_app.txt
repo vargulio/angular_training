@@ -1,0 +1,26 @@
+Pokemon app
+
+Create a brand new application with the following pages:
+‘/create’ - A create form for a Pokemon with the validations and everything from the previous task.
+‘/home’ - A page where we list all Pokemons with the functionality described in here
+The data now will come from the real API - https://pokeapi.co/api/v2/pokemon/
+documentation - https://pokeapi.co/docs/v2
+
+Implement pagination using the next and previous properties in the response of the call for Pokemons.
+
+
+‘/details/:id’ - details page that shows makes a request for the specific pokemon
+and shows detailed information for it:
+ 	name
+	picture
+	types
+	abilities
+	height
+	held items
+	moves - name of the move + effect 
+( data available via API call - https://pokeapi.co/api/v2/move/<moveId>/ )
+
+404 page
+
+
+Implement a navbar that must be placed on top of the screen with links to the pages
