@@ -1,6 +1,7 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Subscription, combineLatest, concatMap, debounceTime, distinctUntilChanged, distinctUntilKeyChanged, filter, from, interval, map, mergeMap, of, skip, switchMap, take, takeUntil, takeWhile, tap, throttleTime, timer } from 'rxjs';
 
 interface PokemonForm {
   name: FormControl<string>;
@@ -54,14 +55,103 @@ interface PokemonForm {
 })
 export class BuildPokemonComponent {
 
-  constructor(private formBuilder: FormBuilder){}
+  constructor(private formBuilder: FormBuilder) { }
+
+  sub: Subscription | null = null;
+  counter = 0;
+
+  ngOnInit() {
+    // this.sub = this.form.valueChanges.pipe(
+    //   throttleTime(1000),
+    //   map((data) => {
+    //     return {
+    //       name: data.name,
+    //       abilities: data.abilities?.join(', ')
+    //     }
+    //   }),
+    //   tap(data => {
+    //     console.log(++this.counter);
+    //     return 'bahur'
+    //   }),
+    //   take(5),
+    //   map((data) => console.log('From map: ', data) )
+    //   // filter(transformedObject => !!(transformedObject.name && transformedObject.abilities) )
+    // ).subscribe();
+
+    // this.form.valueChanges.pipe(
+    //   map(formValue => formValue.abilities),
+    //   distinctUntilChanged((previous, current) => previous?.length === current?.length )
+    //   )
+    // .subscribe(console.log);
+
+
+    const actions$ = interval(400).pipe(
+      map((index) => {
+
+        const random = Math.floor(Math.random() * 3);
+
+        switch (random) {
+          case 0:
+            return index + "DRAW RECTANGLE";
+          case 1:
+            return index + "DRAW CIRCLE";
+          case 2:
+            return index + "DRAW TRIANGLE";
+          default:
+            return index + "DRAW TRIANGLE";
+        }
+
+      }),
+      take(10)
+    );
+
+    const processAction$ = interval(1500).pipe(
+      take(2),
+      map((index) => {
+        switch (index) {
+          case 0:
+            return "SEND REQUEST";
+          case 1:
+            return "RESPONSE";
+          default:
+            return "RESPONSE";
+        }
+      })
+    );
+
+    // actions$.pipe(
+    //   mergeMap((action) => processAction$.pipe(map(processStep => `${action} ${processStep}`)))
+    // ).subscribe(console.log);
+    
+      combineLatest([actions$, processAction$]).subscribe(console.log);
+    
+  }
+
+  ngOnDestroy() {
+    this.sub?.unsubscribe();
+  }
+
+  ngAfterViewInit() {
+    // console.log('Before from');
+    // from([{}, 1, 'bahur', 'magare']).subscribe(data => {
+    //   console.log(data);
+    // });
+    // console.log("After from");
+
+    const timer$ = timer(5000);
+
+    // interval(1000)
+    // .pipe(
+    //     takeUntil(timer$)
+    // ).subscribe(console.log)
+  }
 
   form: FormGroup<PokemonForm> = this.formBuilder.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(6), CapitalLetterValidator]],
     type: ['', Validators.required],
     image: ['', Validators.required],
     abilities: this.formBuilder.array([this.creatNewAbilityControl()])
-  }, {validators: [ValidateAbilitiesLength(1)]})
+  }, { validators: [ValidateAbilitiesLength(1)] })
 
   get abilities(): FormArray {
     return this.form.controls.abilities;
@@ -77,7 +167,7 @@ export class BuildPokemonComponent {
 
   addAbility(): void {
     this.abilities.push(this.creatNewAbilityControl());
-  } 
+  }
 
   removeAbility(i: number): void {
     this.abilities.removeAt(i);
@@ -102,15 +192,15 @@ export class BuildPokemonComponent {
 }
 
 function ValidateAbilitiesLength(count: number): ValidatorFn {
-  return function(form: AbstractControl): ValidationErrors | null {
+  return function (form: AbstractControl): ValidationErrors | null {
     const abilities = form.get('abilities')?.value ?? [];
-    return abilities.length < count ? {minlength: true}  : null;
+    return abilities.length < count ? { minlength: true } : null;
   }
 }
 
 function CapitalLetterValidator(control: AbstractControl): ValidationErrors | null {
   const firstLetter: string = control.value.charAt(0);
-  return firstLetter === firstLetter.toUpperCase() ? null : {capitalLetter: true};
+  return firstLetter === firstLetter.toUpperCase() ? null : { capitalLetter: true };
 }
 
 
